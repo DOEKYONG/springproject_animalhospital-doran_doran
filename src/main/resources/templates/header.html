@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="header" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="https://kit.fontawesome.com/8b9b053bfd.js" crossorigin="anonymous"></script>
+  <link  href="/css/header.css" rel="stylesheet">
+</head>
+<body>
+<div class="header_wrap">
+
+  <div class="header_menu_b">
+    <div class="logo_wrap">
+      <a href="/"> <img id="logo" src="/img/logo2.png"> </a>
+    </div>
+
+    <ul class="header_ul_menu">
+
+      <li class="menu_li">
+        <div class="menu b">
+          <a href="/board/notice"> 고객센터 </a>
+        </div>
+      </li>
+      <li class="menu_li">
+        <div class="menu b">
+          <a href="/board/list"> 게시판 </a>
+        </div>
+      </li>
+      <li class="menu_li">
+        <div class="menu b">
+          <a href="/special/videosearch"> 영상 갤러리 </a>
+        </div>
+      </li>
+      <li class="menu_li">
+        <div class="menu b">
+          <a href="/news"> 뉴스 </a>
+        </div>
+      </li>
+      <li class="menu_li">
+        <div class="menu b">
+          <a href="/member/shop"> 중고 상점 </a>
+        </div>
+      </li>
+      <li class="menu_li">
+        <div class="menu b">
+          <a sec:authorize="isAuthenticated()" href="/member/message">쪽지</a>
+        </div>
+      </li>
+      <li class="menu_li">
+        <div class="menu b">
+          <a sec:authorize="isAuthenticated()" href="/member/request">병원등록</a>
+        </div>
+      </li>
+
+    </ul>
+    <div class="login_btnwrap">
+      <div class="login">
+        <a sec:authorize="hasRole('ADMIN')"  href ="/admin/binlist"> 관리자모드 </a>
+      </div>
+      <div class="login">
+        <a sec:authorize="hasRole('ADMIN')"  href ="/admin/getchart"> 방문통계 </a>
+      </div>
+      <div class="login">
+        <a sec:authorize="isAuthenticated()"  href ="/member/logout"> 로그아웃 </a>
+      </div>
+      <div class="login">
+        <a sec:authorize="isAnonymous()"  href="/member/login"> 로그인 </a>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

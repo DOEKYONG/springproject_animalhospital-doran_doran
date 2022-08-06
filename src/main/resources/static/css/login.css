@@ -1,0 +1,85 @@
+.bgc {
+        width: 100%;
+        height: 200px;
+        background-color: #AED45B;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+}
+.login_wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input_form input , .input_btn input {
+  width : 300px;
+        height :40px;
+        margin-top : 10px;
+        font-weight:bold;
+
+
+}
+.input_form input {
+            border : none;
+            border-bottom: solid 5px #75D6E6;
+}
+.input_btn input{
+margin-top : 20px;
+    border : none;
+    background-color:#75D6E6;
+    font-weight:bold;
+    color: #fff;
+}
+.logintbn{
+    width : 300px;
+    height :40px;
+    border : none;
+    margin-top : 10px;
+    font-weight:bold;
+}
+
+.naver_login{
+color: #fff;
+background-color:#00c73c;
+}
+.kakao_login {
+background-color:#FEE500;
+color: #000;
+}
+.google_login {
+background-color:#fff;
+border : 1px solid #eee;
+}
+.github_login{
+background-color:#000;
+color: #fff;
+}
+.sns_login{
+    margin-top : 20px;
+}
+h1 {
+    color: #fff
+}
+h3{
+    font-size:20px;
+}
+h6{
+    font-size :15px;
+}
+#logo{
+    width:100%;
+}
+.imgwrap {
+    width: 10%;
+}
+#back{
+margin-top: 20px;
+margin-bottom : 20px;
+    background-color: #AED45B;
+}
+#back_area{
+    display: flex;
+    justify-content:center;
+    margin-top: 20 px !important;
+}
