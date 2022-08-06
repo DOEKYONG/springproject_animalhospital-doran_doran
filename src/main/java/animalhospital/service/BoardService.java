@@ -4,14 +4,12 @@ import animalhospital.domain.board.*;
 import animalhospital.domain.member.MemberEntity;
 import animalhospital.domain.member.MemberRepository;
 import animalhospital.dto.BoardDto;
-import animalhospital.dto.CrawlDto;
 import animalhospital.dto.OauthDto;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -88,7 +86,7 @@ public class BoardService {
 
                         uuidfile = uuid.toString() + "_" + file.getOriginalFilename().replaceAll("_", "-");
                         String dir = "/home/ec2-user/app/springproject_animalhospital/build/resources/main/static/upload/";
-                     //   String dir = "C:\\Users\\504\\springproject_animalhospital\\src\\main\\resources\\static\\upload\\";
+                        //   String dir = "C:\\Users\\504\\springproject_animalhospital\\src\\main\\resources\\static\\upload\\";
 
                         String filepath = dir + uuidfile;
 
@@ -323,28 +321,52 @@ public class BoardService {
         }
     }
 
-    public CrawlDto crawling(String city, String name) {
-        String code = city+name;
+    public JSONObject crawling() {
+        String hname =  (String) request.getSession().getAttribute("hname");
+        String hdate =  (String) request.getSession().getAttribute("hdate");
+        String hcity = (String) request.getSession().getAttribute("hcity");
+        String htel = (String) request.getSession().getAttribute("htel");
+        String haddress = (String) request.getSession().getAttribute("haddress");
+        String lat = (String) request.getSession().getAttribute("lat");
+        String logt = (String) request.getSession().getAttribute("logt");
+        String code = hcity+hname;
         String inflearnUrl = "https://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q="+code;
         Connection conn = Jsoup.connect(inflearnUrl);
+        JSONObject object = new JSONObject();
         try {
-            CrawlDto crawlDto = new CrawlDto();
+//            CrawlDto crawlDto = new CrawlDto();
             Document document = conn.get();
-            // Elements title = document.getElementsByClass("inner_tit").first().select("b");
+            String score2 = null;
+            String  link = null;
             try{ // try catch 두번 쓴 이유 크롤링 null값 예외처리 위해서
                 Elements score = document.getElementsByClass("txt_info ").first().getElementsByClass("f_eb");
 //            String title2 = title.text().replaceAll(" ","");
-                String  score2 = score.first().text();
-                String  link = score.attr("href");
-                crawlDto.setScroe(score2);
-                crawlDto.setLink(link);
+                score2 = score.first().text();
+                link = score.attr("href");
+//                crawlDto.setScroe(score2);
+//                crawlDto.setLink(link);
             }catch (NullPointerException e){}
-            return  crawlDto;
+            object.put("hname",hname);
+            object.put("hdate",hdate);
+            object.put("hcity",hcity);
+            object.put("haddress",haddress);
+            object.put("htel",htel);
+            object.put("lat",lat);
+            object.put("logt",logt);
+            if(score2==null) {
+                object.put("score","다음리뷰 없음");
+                object.put("link","#");
+            }else {
+                object.put("score", score2);
+                object.put("link", link);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  null;
+        return  object;
     }
+
 
 
     @Transactional
@@ -428,7 +450,7 @@ public class BoardService {
 
     public boolean rereplysave(int bno, int rindex, String reply) {
         System.out.println(rindex);
-      String mid = memberService.authenticationget();
+        String mid = memberService.authenticationget();
         if( mid != null  ) {
             Optional<MemberEntity> optionalMember = memberRepository.findBymid(mid);
             if (optionalMember.isPresent()) { // null 아니면
@@ -527,7 +549,7 @@ public class BoardService {
                     UUID uuid = UUID.randomUUID();
 
                     uuidfile = uuid.toString() + "_" + file.getOriginalFilename().replaceAll("_", "-");
-                  //  String dir = "C:\\Users\\504\\springproject_animalhospital\\src\\main\\resources\\static\\upload\\";
+                    //  String dir = "C:\\Users\\504\\springproject_animalhospital\\src\\main\\resources\\static\\upload\\";
                     String dir = "/home/ec2-user/app/springproject_animalhospital/build/resources/main/static/upload/";
                     String filepath = dir + uuidfile;
 

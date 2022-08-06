@@ -1,0 +1,69 @@
+
+
+.mpa_area{
+    width: 100%;
+    display: flex;
+}
+#map{
+    width: 100%;
+ height: 80vh;
+   z-index: 0;
+
+}
+.content_wrap{
+
+    display: flex;
+    flex-direction: column;
+}
+.input_area{
+    display: flex;
+
+}
+
+.map_area{
+    display: flex;
+
+}
+#map_content{
+    width: 80%;
+
+}
+.right{
+    width: 20%;
+    height: 80vh;
+    overflow: scroll;
+       background-color: #f4f7fa;
+}
+#serachbar{
+    width: 400px;
+    height: 45px;
+}
+
+.btn_area button {
+    height: 45px;
+}
+.hospital-box {
+        height: 150px;
+        border-bottom: 1px solid rgba(146, 140, 135, 0.3);
+         border-left: 1px solid rgba(146, 140, 135, 0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 30px;
+
+}
+#ssss{
+       width: 15%;
+       height: 50px;
+       background-color: green;
+}
+.input_area{
+       position: relative;
+       top: 50px;
+       z-index: 1;
+   }
+.login {
+
+   float: right;
+}

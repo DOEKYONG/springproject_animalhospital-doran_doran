@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/board/mypetlist.css">
+</head>
+<body>
+<div th:replace="header.html :: header"></div>
+<div class="bgc">
+    <div class="title">
+        <h1>커뮤니티</h1>
+    </div><br>
+    <div class="menubar">
+        <button type="button" class="menu2"  onclick="location.href='/board/tiplist'">꿀팁 공유하기</button>
+        <button type="button" class="menu1" onclick="location.href='/board/list'">반려동물 자랑대회</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4">
+        <button sec:authorize="isAuthenticated()" type="button" class="btn btn-primary addbtn" data-bs-toggle="modal" data-bs-target="#myModal">
+            사진올리기
+        </button>
+    </div>
+</div>
+<div id="table" class="container table">
+
+</div>
+<ul id="pagebtnbox" class="pagination justify-content-center">
+
+</ul>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">자랑하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="saveform">
+                    <div class="row">
+                        <div class="col-md-6 modal_left">
+                            <div class="preview"><img id="img_preview" src="/img/no-image.png" ></div>
+                            <div>
+                                <div class="filebox">
+                                    <input class="upload-name" value="첨부파일" placeholder="첨부파일">
+                                    <label for="bimg">파일찾기</label>
+                                    <input class="file" type="file" id="bimg" multiple name="bimg" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6  contenttable">
+                            <div>
+                                <input class="inputtxt" type="text" placeholder="제목을 입력하세요" id="btitle" name="btitle">
+                            </div>
+                            <div>
+                                <textarea class="inputtxt" rows="18" placeholder="내용을 입력하세요"  name="bcontent" ></textarea>
+                            </div>
+                            <div>
+                                <button class="mypetadd" type="button" onclick="save()">등록하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal2">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel2">자랑하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner modalimg" id="modalimglist">
+
+                                <!-- 이미지가 표시되는 구역 -->
+
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="viewcontent">
+                            <div><h5>작성자: <span id="bwiter"></span></h5></div>
+                            <div><h4><span id="btitl"></span></h4></div>
+                            <span id="bcontent"></span>
+                            <hr>
+                            <div id="replydiv">
+                                <div id="replytable">
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div id="replyinput">
+                            <input type="text" class="mypetreply" id="reply" placeholder="댓글을 입력해주세요">
+                            <button type="button" class="replybtn" onclick="replysave()">등록</button>
+                        </div>
+                        <div id="deletebutton" class="deletebutton">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="myModal3">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">자랑하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="updateform">
+                    <div class="row">
+                        <div class="col-md-6 modal_left">
+                            <div id="carouselExampleControls2" class="carousel slide carousel_area" data-bs-ride="carousel">
+                                <div class="carousel-inner preview2" id="preview2">
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div>
+                                <div class="filebox">
+                                    <input class="upload-name2" value="첨부파일" placeholder="첨부파일" disabled>
+                                    <label for="bimg2">파일찾기</label>
+                                    <input type="file" id="bimg2" name="bimg" multiple accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 contenttable">
+                            <div>
+                                <input class="inputtxt" type="text" placeholder="제목을 입력하세요" id="btitle2" name="btitle">
+                            </div>
+                            <div>
+                                <textarea class="inputtxt" rows="18"  placeholder="내용을 입력하세요" name="bcontent"  id="bcontent2" ></textarea>
+                            </div>
+                            <div>
+                                <button class="mypetadd" type="button" onclick="mypetupdate()">수정하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="footer.html :: footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/js/board/mypet.js"></script>
+
+
+</body>
+</html>

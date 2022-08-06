@@ -1,0 +1,20 @@
+/* 푸터 css */
+.footer_wrap{
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid #eee;
+    margin-top : 10px;
+}
+.footer_div {
+    margin-top : 10px;
+    font-size :15px
+}
+.icon i {
+    font-size:25px;
+    margin-bottom: 15px;
+}
+a {
+color: #000;
+    text-decoration: none;
+}
