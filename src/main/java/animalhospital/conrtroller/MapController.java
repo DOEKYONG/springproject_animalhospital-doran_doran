@@ -1,5 +1,6 @@
 package animalhospital.conrtroller;
 
+import animalhospital.dto.HospitalDto;
 import animalhospital.dto.ReviewDto;
 import animalhospital.service.BoardService;
 import animalhospital.service.MapService;
@@ -25,32 +26,32 @@ public class MapController {
     BoardService boardService;
 
 
+    HospitalDto hospitalDto = new HospitalDto();
+
+
     @GetMapping("/infopage")
     public String list(){ return "hospitalinfo";}
-
-
     @GetMapping("/view")
     @ResponseBody
-    public String view(HttpServletResponse response, @RequestParam("hname") String hname, @RequestParam("hdate") String hdate,@RequestParam("hcity") String hcity
+    public void view(HttpServletResponse response, @RequestParam("hname") String hname, @RequestParam("hdate") String hdate,@RequestParam("hcity") String hcity
             ,@RequestParam("haddress") String haddress, @RequestParam("htel") String htel ,@RequestParam("lat") String lat ,@RequestParam("logt") String logt)
     {
-        request.getSession().setAttribute("hname", hname);
-        request.getSession().setAttribute("hdate", hdate);
-        request.getSession().setAttribute("hcity",hcity);
-        request.getSession().setAttribute("haddress",haddress);
-        request.getSession().setAttribute("htel",htel);
-        request.getSession().setAttribute("lat",lat);
-        request.getSession().setAttribute("logt",logt);
-        return hname;
+        hospitalDto.setHname(hname);
+        hospitalDto.setHdate(hdate);
+        hospitalDto.setHcity(hcity);
+        hospitalDto.setHaddress(haddress);
+        hospitalDto.setHtel(htel);
+        hospitalDto.setLat(lat);
+        hospitalDto.setLogt(logt);
     }
 
     @PostMapping("/info")
     @ResponseBody
-    public void info(HttpServletResponse response ){
+    public void info(HttpServletResponse response){
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            response.getWriter().print(boardService.crawling());
+            response.getWriter().print(boardService.crawling(hospitalDto));
         }catch( Exception e ){
             System.out.println(  e   );
         }

@@ -4,6 +4,7 @@ import animalhospital.domain.board.*;
 import animalhospital.domain.member.MemberEntity;
 import animalhospital.domain.member.MemberRepository;
 import animalhospital.dto.BoardDto;
+import animalhospital.dto.HospitalDto;
 import animalhospital.dto.OauthDto;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -321,30 +322,27 @@ public class BoardService {
         }
     }
 
-    public JSONObject crawling() {
-        String hname =  (String) request.getSession().getAttribute("hname");
-        String hdate =  (String) request.getSession().getAttribute("hdate");
-        String hcity = (String) request.getSession().getAttribute("hcity");
-        String htel = (String) request.getSession().getAttribute("htel");
-        String haddress = (String) request.getSession().getAttribute("haddress");
-        String lat = (String) request.getSession().getAttribute("lat");
-        String logt = (String) request.getSession().getAttribute("logt");
+    public JSONObject crawling(HospitalDto dto) {
+        String hname = dto.getHname();
+        String hdate = dto.getHdate();
+        String hcity = dto.getHcity();
+        String htel = dto.getHtel();
+        String haddress = dto.getHaddress();
+        String lat = dto.getLat();
+        String logt = dto.getLogt();
+        System.out.println("dto2:"+ dto);
         String code = hcity+hname;
         String inflearnUrl = "https://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q="+code;
         Connection conn = Jsoup.connect(inflearnUrl);
         JSONObject object = new JSONObject();
         try {
-//            CrawlDto crawlDto = new CrawlDto();
             Document document = conn.get();
             String score2 = null;
             String  link = null;
             try{ // try catch 두번 쓴 이유 크롤링 null값 예외처리 위해서
                 Elements score = document.getElementsByClass("txt_info ").first().getElementsByClass("f_eb");
-//            String title2 = title.text().replaceAll(" ","");
                 score2 = score.first().text();
                 link = score.attr("href");
-//                crawlDto.setScroe(score2);
-//                crawlDto.setLink(link);
             }catch (NullPointerException e){}
             object.put("hname",hname);
             object.put("hdate",hdate);
@@ -360,7 +358,6 @@ public class BoardService {
                 object.put("score", score2);
                 object.put("link", link);
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
