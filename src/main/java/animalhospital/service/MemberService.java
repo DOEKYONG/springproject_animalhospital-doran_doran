@@ -114,25 +114,22 @@ public class MemberService implements OAuth2UserService<OAuth2UserRequest ,OAuth
         }
 
         httpSession.setAttribute("login", oauthDto);
-        httpSession.setAttribute("date", LocalDate.now());
-        LocalDate nowdate  = (LocalDate) httpSession.getAttribute("date");
+        LocalDate nowdate  = LocalDate.now();
         String date = nowdate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         OauthDto csession = (OauthDto) httpSession.getAttribute("login");
-
-        if(httpSession.getAttribute(csession.getMemail()+date)==null){
+        if(csession.getMemail()+date != memberRepository.findbycnum(csession+date)){
             CountDto cdto = CountDto.builder()
                     .cnum(csession.getMemail()+date)
                     .count(1)
                     .createdate(LocalDate.now())
                     .build();
-
             // 엔티티를 이용한 조회수 증가
-
             // 방문자수 중복방지 [ 세션 생성 ]
-            httpSession.setAttribute(csession.getMemail()+date,true);
-            System.out.println("중복방지"+httpSession.getAttribute(csession.getMemail()+date));
-            httpSession.setMaxInactiveInterval(60*60*24);
+           // httpSession.setAttribute(csession.getMemail()+date,true);
+            // System.out.println("중복방지"+httpSession.getAttribute(csession.getMemail()+date));
+            //httpSession.setMaxInactiveInterval(60*60*24);
             countingRepository.save(cdto.toentity());
+
         }
 
         // 반환타입 DefaultOAuth2User ( 권한(role)명 , 회원인증정보 , 회원정보 호출키 )

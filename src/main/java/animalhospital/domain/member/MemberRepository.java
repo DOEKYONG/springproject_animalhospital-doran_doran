@@ -20,6 +20,9 @@ public interface MemberRepository extends JpaRepository<MemberEntity , Integer> 
     @Query( value = "select mid from member where mno = :mno" , nativeQuery = true )
     String findbymno (int mno);
 
+    @Query( value = "select cnum from count where cnum = :cnum" , nativeQuery = true )
+    String findbycnum (String cnum);
+
 }
 
 //  특정 필드 검색 메소드 만들기 : findBy필드명
