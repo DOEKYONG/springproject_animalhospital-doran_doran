@@ -128,7 +128,7 @@ public class MemberService implements OAuth2UserService<OAuth2UserRequest ,OAuth
            // httpSession.setAttribute(csession.getMemail()+date,true);
             // System.out.println("중복방지"+httpSession.getAttribute(csession.getMemail()+date));
             //httpSession.setMaxInactiveInterval(60*60*24);
-            // test2
+            // test3
             countingRepository.save(cdto.toentity());
 
         }
