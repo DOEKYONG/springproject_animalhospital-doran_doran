@@ -3,7 +3,6 @@ let datetest;
 let count;
 var data = [];
 am5.ready(function() {
-
  $.ajax({
     url : "/admin/getchartview",
     async : false,
@@ -19,10 +18,8 @@ am5.ready(function() {
                   steps: count
                   }
                  data.push(test);
-
                 console.log(data);
             }
-
       }
     }
 
@@ -221,7 +218,7 @@ series.events.on("datavalidated", function () {
   var toTime =
     series.dataItems[series.dataItems.length - 1].get("valueX") +
     am5.time.getDuration("day", 1);
-  var fromTime = series.dataItems[series.dataItems.length - 10].get("valueX");
+  var fromTime = series.dataItems[series.dataItems.length - 9].get("valueX");
 
   xAxis.zoomToValues(fromTime, toTime);
 });

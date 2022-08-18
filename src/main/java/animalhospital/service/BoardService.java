@@ -330,7 +330,6 @@ public class BoardService {
         String haddress = dto.getHaddress();
         String lat = dto.getLat();
         String logt = dto.getLogt();
-        System.out.println("dto2:"+ dto);
         String code = hcity+hname;
         String inflearnUrl = "https://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q="+code;
         Connection conn = Jsoup.connect(inflearnUrl);

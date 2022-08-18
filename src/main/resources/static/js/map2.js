@@ -160,11 +160,13 @@ function search(){
 
 }
 function hview(i){
-
     $.ajax({
        url: "/map/view",
        method: "GET",
-       data: {"hname":list[i].name , "hdate": list[i].opendate, "hcity" : list[i].city , "haddress" : list[i].addr, "htel" : list[i].tel , "lat" : list[i].lat , "logt" : list[i].logt},
+       data: {"hname":list[i].name , "hdate": list[i].opendate,
+       "hcity" : list[i].city , "haddress" : list[i].addr,
+       "htel" : list[i].tel , "lat" : list[i].lat ,
+        "logt" : list[i].logt},
         success: function(re){
              alert(re);
              location.href = "map/infopage";

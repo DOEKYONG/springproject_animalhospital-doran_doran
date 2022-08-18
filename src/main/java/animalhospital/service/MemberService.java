@@ -123,12 +123,6 @@ public class MemberService implements OAuth2UserService<OAuth2UserRequest ,OAuth
                     .count(1)
                     .createdate(LocalDate.now())
                     .build();
-            // 엔티티를 이용한 조회수 증가
-            // 방문자수 중복방지 [ 세션 생성 ]
-           // httpSession.setAttribute(csession.getMemail()+date,true);
-            // System.out.println("중복방지"+httpSession.getAttribute(csession.getMemail()+date));
-            //httpSession.setMaxInactiveInterval(60*60*24);
-            // test6
             countingRepository.save(cdto.toentity());
 
         }
@@ -468,27 +462,20 @@ public class MemberService implements OAuth2UserService<OAuth2UserRequest ,OAuth
         JSONArray jsonArray = new JSONArray();
         JSONArray child =   new JSONArray();
         List<CountEntity> list = countingRepository.getcount();
-        System.out.println(list.toString());
-        JSONObject object2 = new JSONObject();
-        object2.put("date","1");
-        String od = object2.get("date").toString();
+        String od = "1";
         for(CountEntity dto : list) {
             JSONObject object = new JSONObject();
             object.put("date",dto.getCreatedate());
             object.put("count",dto.getCount());
             if((object.get("date").toString().equals(od))) {
                 child.put(object);
-
             } else {
                 child = new JSONArray();
                 child.put(object);
                 jsonArray.put(child);
             }
-            //jsonArray.put(object);
             od = object.get("date").toString();
-
         }
-        //System.out.println("ddd"+ jsonArray);
         return jsonArray;
     }
 

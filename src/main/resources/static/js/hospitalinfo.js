@@ -31,7 +31,6 @@ function info(page){
             '<p>'+re.haddress+'</p>'+
             '<p>TEL : '+re.htel+'</p>'
             )
-
             getreviewlist(page,re.hname,re.hdate);
             getreviewstarlist(re.hname,re.hdate);
       }

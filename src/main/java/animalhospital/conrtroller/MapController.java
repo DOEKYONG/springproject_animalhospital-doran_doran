@@ -44,7 +44,6 @@ public class MapController {
         hospitalDto.setLat(lat);
         hospitalDto.setLogt(logt);
     }
-
     @PostMapping("/info")
     @ResponseBody
     public void info(HttpServletResponse response){

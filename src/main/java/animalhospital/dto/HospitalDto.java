@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class HospitalDto {
-
     private String hname;
     private String hdate;
     private String hcity;
@@ -17,9 +16,4 @@ public class HospitalDto {
     private String htel;
     private String lat;
     private String logt;
-
-
-
-
-
 }
